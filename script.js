@@ -69,22 +69,22 @@ const url = "https://api.tvmaze.com/shows/82/episodes";
 //--------------------------------------------------------------------
 
 window.addEventListener("load", function () {
-  async function fetchEpisode() {
+  async function fetchEpisodes() {
     let response = await fetch(url);
-    let details = await response.json();
+    let deta = await response.json();
     /** ForEch ------------------------------------------------------      */
     let AllEpisode = deta;
     AllEpisode.forEach(item => {
       intro(item);
     });
   }
-  fetchEpisode();
+  fetchEpisodes();
 });
 
 //----------------------------------------------------------
 buttonN.addEventListener("click", function (e) {
   e.preventDefault();
-  async function fetchEpisode() {
+  async function fetchEpisodee() {
     let response = await fetch(url);
     let data = await response.json();
     /** ForEch       */
@@ -94,16 +94,20 @@ buttonN.addEventListener("click", function (e) {
       let textName = item.name.toLowerCase();
       let textSummary = item.summary.toLowerCase();
       let allText = textName + textSummary;
+      
       return allText.includes(search.toLowerCase());
     });
-
+    console.log(searchResult);
+    makePageForEpisodes(searchResult);
     searchResult.forEach(item => {
       h3.textContent = `Displaying ${searchResult.length}/${AllEpisode.length} episodes`;
+      console.log('item',item);
+      //clear();
       intro(item);
     });
   }
-
-  fetchEpisode();
+  
+  fetchEpisodee();
 });
 
 
@@ -124,6 +128,7 @@ fetchEpisode();
 reset.addEventListener("click", function () {
   location.reload();
 });
+
 function intro(item) {
   let html = `<section class="episode_all">
   <div class="overall_ditail">
@@ -144,7 +149,6 @@ function intro(item) {
   containerAll.insertAdjacentHTML("beforebegin", html);
   containerAll.getElementsByClassName.opacity = 1;
 }
-
 
 // function onSearch() {
 // const form=document.getElementById("form");
@@ -179,6 +183,7 @@ function intro(item) {
 //     rootElem.innerHTML=html;
 //   }else{
 //     rootElem.innerHTML="";
+
 //   }
 
 // });
@@ -208,3 +213,47 @@ window.onload = setup;
 //   const episodes = getAllEpisodes();
 //   divEl1.appendChild(sectionEl1);
 // }
+
+
+// jadid..........................................................................
+// function setup() {
+//   const episodes = getAllEpisodes();
+//   makePageForEpisodes(episodes);
+// }
+
+
+// function makePageForEpisodes(episodeList) {
+//   const container = document.getElementById("episodes");
+
+//   episodeList.forEach((episode) => {
+//       const card = document.createElement("div");
+//       card.classList.add("card");
+
+//       const h1 = document.createElement("h1");
+//       h1.textContent = `${episode.name} - ${makeEpisodeCode(episode)}`;
+
+//       const img = document.createElement("img");
+//       img.setAttribute("src", episode.image.medium);
+
+//       const p = document.createElement("p");
+//       p.textContent = episode.summary;
+
+//       container.appendChild(card);
+//       card.appendChild(h1);
+//       card.appendChild(img);
+//       card.appendChild(p);
+//   });
+// }
+
+
+// function makeEpisodeCode(episode) {
+//   return `S${pad(episode.season)}E${pad(episode.number)}`;
+// }
+
+
+// function pad(num) {
+//   return num.toString().padStart(2, "0");
+// }
+
+
+// window.onload = setup;
